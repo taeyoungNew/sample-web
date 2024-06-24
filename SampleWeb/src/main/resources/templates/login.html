@@ -8,6 +8,7 @@
 </head>
 <body>
 	<h2>로그인 화면</h2>
+	<span th:text="${errorMsg}"></span>
 	<!-- th:action : 타임리프를 사용한다는 정의 -->
 	<!-- th:object="${dto클래스의 앞글자만 소문자로 한 변수명을 넣어준다.}" -->
 	<form th:action="@{/login}" method="post" th:object="${loginReqDto}">

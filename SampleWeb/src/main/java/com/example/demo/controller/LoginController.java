@@ -11,6 +11,9 @@ import com.example.demo.dto.LoginReqDto;
 //@RequestMapping("/login")	// localhost:8080/login으로 접속했을 때 이 Controller클래스로 접근
 public class LoginController {
 	
+	private static final String LOGIN_ID = "user";
+	private static final String PASSWORD = "pwd";
+	
 	@GetMapping("/login")
 	// Model클래스 : 컨트롤러에서 html로 데이터를 전송하는 클래스 
 	// 기본적으로 key와 value의 map형식이다 
@@ -24,7 +27,17 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	public void Login(LoginReqDto form) {
+	public String Login(Model model, LoginReqDto form) {
+		// var키워드 : java10부터 도입되었으며 지역변수의 타입추론을 위한 키워드이다. 
+		// 변수선언시 타입을 생략가능하게 한다.
+		// 자바스크립트 같넹
+		boolean isCorrectUserAuth = form.getLoginId().equals(LOGIN_ID) && form.getPassword().equals(PASSWORD);
 		System.out.println(form.toString());
+		if(isCorrectUserAuth) {
+			return "redirect:/menu";
+		} else {
+			model.addAttribute("errorMsg", "아이디 또는 패스워드가 일치하지 않습니다.");
+			return "login";
+		}
 	}
 }
