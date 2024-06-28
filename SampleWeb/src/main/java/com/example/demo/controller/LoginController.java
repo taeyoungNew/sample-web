@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import java.util.Locale;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.Entity.UserInfoEntity;
+import com.example.demo.constant.ErrorMassageConst;
 import com.example.demo.dto.LoginReqDto;
 import com.example.demo.service.LoginService;
+//import com.example.demo.util.AppUtill;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +33,11 @@ public class LoginController {
 	
 	// PasswordEncoder
 	private final PasswordEncoder passwordEncoder;
-
+	
+	// message source
+	@Autowired
+	private final MessageSource messageSource;
+	
 	// Model클래스 : 컨트롤러에서 html로 데이터를 전송하는 클래스 
 	// 기본적으로 key와 value의 map형식이다 
 	// html에서는 key에 접근하여 value값을 얻는다.
@@ -63,8 +72,11 @@ public class LoginController {
 		if(isCorrectUserAuth) {
 			return "redirect:/menu";
 		} else {
-			model.addAttribute("errorMsg", "아이디 또는 패스워드가 일치하지 않습니다.");
-			return "login";
+			// message의 key를 모은 클래스를 만들어서 종합적으로 관리하는것을 지향하자
+			String errorMsgString = messageSource.getMessage(ErrorMassageConst.LOGIN_WRONG_INPUT, null, Locale.KOREA);
+//			String errorMsgString = AppUtill.getMessage(messageSource, ErrorMassageConst.LOGIN_WRONG_INPUT);
+			model.addAttribute("errorMsg", errorMsgString);
+			return "login"; 
 		}
 		// var키워드 : java10부터 도입되었으며 지역변수의 타입추론을 위한 키워드이다. 
 		// 변수선언시 타입을 생략가능하게 한다.
