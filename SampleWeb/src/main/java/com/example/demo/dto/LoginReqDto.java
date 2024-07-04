@@ -1,5 +1,7 @@
 package com.example.demo.dto;
 
+import org.hibernate.validator.constraints.Length;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,7 +22,12 @@ import lombok.ToString;
 @Getter
 @ToString
 public class LoginReqDto {
-	private String loginId;
+	
+	@Length(min = 8, max = 20)	// 변수의 값의 최소길이와 최대길이
+	private String userId;
+	
+	@Length(min = 5, max = 20)
+//	@Max(20)
 	private String password;
 	
 }

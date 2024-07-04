@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.Entity.UserInfoEntity;
-import com.example.demo.constant.ErrorMassageConst;
+import com.example.demo.constant.MessageConst;
 import com.example.demo.dto.LoginReqDto;
 import com.example.demo.service.LoginService;
 //import com.example.demo.util.AppUtill;
@@ -63,9 +63,10 @@ public class LoginController {
 	 */
 	@PostMapping("/login")
 	public String Login(Model model, LoginReqDto form) {
-		Optional<UserInfoEntity> userInfo = loginService.searchUserById(form.getLoginId());
+		Optional<UserInfoEntity> userInfo = loginService.searchUserById(form.getUserId());
 		// isPresent() : 값이 있는지의 여부를 boolean으로 반환
 		// userInfo는 Optional타입이기 때문에 
+		// 패스워드가 틀렸을때의 에러메세지와 id를 찾을 수 없을 때의 에러메세지를 만들어보자
 		boolean isCorrectUserAuth = userInfo.isPresent() 
 				// 첫번째 인자는 Hash화 되지 않은 패스워드, 두번째 인자는 Hash화 되어있는 패스워드
 				&& passwordEncoder.matches(form.getPassword(),userInfo.get().getPassword());
@@ -73,7 +74,7 @@ public class LoginController {
 			return "redirect:/menu";
 		} else {
 			// message의 key를 모은 클래스를 만들어서 종합적으로 관리하는것을 지향하자
-			String errorMsgString = messageSource.getMessage(ErrorMassageConst.LOGIN_WRONG_INPUT, null, Locale.KOREA);
+			String errorMsgString = messageSource.getMessage(MessageConst.LOGIN_WRONG_INPUT, null, Locale.KOREA);
 //			String errorMsgString = AppUtill.getMessage(messageSource, ErrorMassageConst.LOGIN_WRONG_INPUT);
 			model.addAttribute("errorMsg", errorMsgString);
 			return "login"; 
