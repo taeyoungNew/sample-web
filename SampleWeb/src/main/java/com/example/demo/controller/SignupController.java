@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.Entity.UserInfoEntity;
 import com.example.demo.constant.MessageConst;
 import com.example.demo.constant.SignupMessage;
+import com.example.demo.constant.UrlConst;
 import com.example.demo.dto.SignupReqDto;
 import com.example.demo.service.SignupService;
 
@@ -33,7 +34,7 @@ public class SignupController {
 	 * @return 회원가입화면표시
 	 */
 	
-	@GetMapping("/signup")
+	@GetMapping(UrlConst.SIGNUP)
 	public String signupPage(Model model, SignupReqDto form) {
 		return "signup";
 	}
@@ -45,7 +46,7 @@ public class SignupController {
 	 * @param bindingResult 입력체크결과
 	 * @return 화면
 	 */
-	@PostMapping("/signup")
+	@PostMapping(UrlConst.SIGNUP)
 	// @Validated : Validation을 사용하기 위해서는 클라이언트에서 받는 form앞에 @Validated어노테이션을 붙인다.
 	// BindingResult : @Validated가 붙은 폼의 입력체크결과를 가져온다.반드시 form 바로 뒤에 정의를 하지않으면 
 	// Validated결과를 가져올수 없다.
