@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<!-- As a link -->
+	<nav class="navbar bg-info navbar-dark" th:fragment="header">
+		<div class="container-fluid">
+			<a class="navbar-brand" th:href="@{/menu}">상품관리시스템</a>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" class="btn btn-light" value="로그아웃">
+			</form>
+		</div>
+	</nav>
+</body>
+</html>

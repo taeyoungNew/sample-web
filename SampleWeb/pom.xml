@@ -52,6 +52,7 @@
 		</dependency>
 
 
+
 		<!-- mysql을 쓰기위한 설정-->
 		<dependency>
 			<groupId>com.mysql</groupId>

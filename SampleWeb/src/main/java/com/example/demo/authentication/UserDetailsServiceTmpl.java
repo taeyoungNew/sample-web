@@ -2,6 +2,7 @@ package com.example.demo.authentication;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
@@ -15,7 +16,7 @@ import com.example.demo.Entity.UserInfoEntity;
 import com.example.demo.repository.UserInfoRepository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.var;
+
 
 /**
  * 유저정보 생성
@@ -28,10 +29,12 @@ public class UserDetailsServiceTmpl implements UserDetailsService {
 	private final UserInfoRepository userInfoRepository;
 
 	// 로그인 최대 실패 횟수
-	private final int LOCKING_BORDER_COUNT = 3;
+	@Value("${security.locking-border-count}")	// application.properties에 있는 프로퍼티를 연결
+	private int lockingBorderCount;
 
 	// 어카운트 락 시간
-	private final int LOCKING_TIME = 1;
+	@Value("${security.locking-time}")
+	private int lockingTime;
 
 	// String username = 로그인아이디를 받는다.
 	// 디포트설정으로는 name = username의 input값을 받지만
@@ -47,7 +50,7 @@ public class UserDetailsServiceTmpl implements UserDetailsService {
 				.orElseThrow(() -> new UsernameNotFoundException(username));
 		LocalDateTime accountLockedTime = userInfo.getAccountLockeTime();
 		boolean isAccountLocked = accountLockedTime != null
-				&& accountLockedTime.plusHours(LOCKING_TIME).isAfter(LocalDateTime.now());
+				&& accountLockedTime.plusHours(lockingBorderCount).isAfter(LocalDateTime.now());
 
 		// User클래스 : Spring Security에서 제동하는 디폰트 사용자모델로
 		// UserDetails인터페이스를 구현하고 있어 사용자의 인증정보와 권한정보를 제공한다.
@@ -76,7 +79,7 @@ public class UserDetailsServiceTmpl implements UserDetailsService {
 			userInfoRepository.save(userInfo.incrementLoginFailureCount());
 			
 			// 총 실패한 횟수를 확인하고 최대 실패횟수와 같을 때 해당 아이디를 락 상태로 만든다. 
-			boolean isReachFailureCount = userInfo.getLoginFailureCount() == LOCKING_BORDER_COUNT;
+			boolean isReachFailureCount = userInfo.getLoginFailureCount() == lockingBorderCount;
 			if (isReachFailureCount) {
 				// 락 상태인지 판단하는 것은 accountLocked에 락걸린 시간 데이터를 저장
 				userInfoRepository.save(userInfo.updateAccountLocked());
