@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

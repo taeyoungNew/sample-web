@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>탑 메뉴</title>
 </head>
 <body>
+	<div th:insert="common/sourceList :: sourceList"></div>
+	<div th:replace="common/header :: header"></div>
 	탑메뉴입니당
 </body>
 </html>
