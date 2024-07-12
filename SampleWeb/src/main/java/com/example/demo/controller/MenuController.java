@@ -22,6 +22,8 @@ public class MenuController {
 	 * @return 화면표시
 	 */
 	@GetMapping(UrlConst.MENU)
+	// @AuthenticationPrincipal어노테이션을 쓰면 model로 따로 담아 클라이언트로 보내주지 않아도 
+	// th:text="|${#authentication.principal.username}|"로 접근하여 받을 수 있다. 
 	public String menuPage(@AuthenticationPrincipal User user, Model model) {
 		// hasUserManageAuth : 로그인한 유저가 유저정보를 관리하는것이 가능한가에 대한 결과를 담고있음
 		boolean hasUserManageAuth = user.getAuthorities().stream()	// 유저정보에 있는 authorites의 데이터가 1, 2면 false 3이면 true가 된다
