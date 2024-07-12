@@ -3,10 +3,10 @@ package com.example.demo.Entity;
 
 import java.time.LocalDateTime;
 
+import com.example.demo.constant.AuthorityKind;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -47,6 +47,10 @@ public class UserInfoEntity {
 	@Column(name = "is_disabled")
 	private boolean isDisabled;
 	
+	// 유저의 권한
+	@Column(name = "authority")
+	private String authority;
+	
 	public UserInfoEntity() {
 		
 	}
@@ -58,7 +62,7 @@ public class UserInfoEntity {
 	 */
 	
 	public UserInfoEntity incrementLoginFailureCount() {
-		return new UserInfoEntity(userId, password, ++loginFailureCount, accountLockeTime, isDisabled);
+		return new UserInfoEntity(userId, password, ++loginFailureCount, accountLockeTime, isDisabled, authority);
 	}
 	
 	/**
@@ -68,7 +72,7 @@ public class UserInfoEntity {
 	 */
 	public UserInfoEntity resetLoginFailureInfo() {
 		// 로그인 실패횟수를 0으로 그리고 락걸린시간을 null로 리셋
-		return new UserInfoEntity(userId, password, 0, null, isDisabled);
+		return new UserInfoEntity(userId, password, 0, null, isDisabled, authority);
 	}
 	
 	/**
@@ -78,8 +82,13 @@ public class UserInfoEntity {
 	 */
 	public UserInfoEntity updateAccountLocked() {
 		//  LocalDateTime.now() : 현재시간
-		return new UserInfoEntity(userId, password, 0, LocalDateTime.now(), isDisabled);
+		return new UserInfoEntity(userId, password, 0, LocalDateTime.now(), isDisabled, authority);
 	}
-	
+
+	public void setAuthority(String string) {
+		// TODO Auto-generated method stub
+		this.authority = string;
+	}
+
 	
 }

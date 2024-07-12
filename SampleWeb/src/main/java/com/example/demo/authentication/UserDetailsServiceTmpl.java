@@ -56,7 +56,8 @@ public class UserDetailsServiceTmpl implements UserDetailsService {
 		// UserDetails인터페이스를 구현하고 있어 사용자의 인증정보와 권한정보를 제공한다.
 		return User.withUsername(userInfo.getUserId()) // User
 				.password(userInfo.getPassword())
-				.roles("USER")
+//				.roles("USER")
+				.authorities(userInfo.getAuthority())	// 유저의 권한정보를 저장 tymeleaf에서는 hasUserManageAuth로 받는다. 
 				.disabled(userInfo.isDisabled())
 				.accountLocked(isAccountLocked)
 				.build();

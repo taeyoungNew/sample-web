@@ -64,8 +64,8 @@ public class WebSecurityConfig {
 					.anyRequest().authenticated())
 			.formLogin(login -> 
 				login.loginPage(UrlConst.LOGIN)	// 커스텀 로그인 화면을 사용하기위한 설정
-					.usernameParameter(USERNAME_PARAMETER)	// 유저명 파라미터의 name속성
-					.defaultSuccessUrl(UrlConst.MENU)// 로그인 성공시 이동하는 page URL
+					 .usernameParameter(USERNAME_PARAMETER)	// 유저명 파라미터의 name속성
+					 .defaultSuccessUrl(UrlConst.MENU)// 로그인 성공시 이동하는 page URL
 			)
 			// logout이 계속 오류가 났던 이유 : header.html의 th:action="@{/logout}"의 'th'가 없어서 
 			.logout(authorize -> authorize
