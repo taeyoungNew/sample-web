@@ -7,6 +7,19 @@
 <body>
 	<div th:insert="common/sourceList :: sourceList"></div>
 	<div th:replace="common/header :: header"></div>
-	탑메뉴입니당
+	<div class="container-fluid">
+		<h2>탑메뉴</h2>
+		<div class="mt-3">
+			상품리스트의 확인 및 관리하기
+		</div>
+		<a href="" class="btn btn-primary">상품리스트</a>
+		<!-- th:block : 자식태그를 그룹핑하여 관리하고 싶을 때 사용 -->
+		<th:block th:if="${hasUserManageAuth}">
+			<div class="mt-3">
+				유저정보관리하기		
+			</div>
+			<a href="" class="btn btn-danger">유저관리</a>
+		</th:block>
+	</div>
 </body>
 </html>
