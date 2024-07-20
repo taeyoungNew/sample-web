@@ -3,7 +3,7 @@ package com.example.demo.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.Entity.UserInfoEntity;
+import com.example.demo.entity.UserInfoEntity;
 
 // JpaRepositoryを継承してJpaRepositoryの機能を使うと定義する
 // 첫번째인자는 실제로 사용하는 Entity클래스를 두번째인자는 Id값의 데이터타입을 넣어준다.

@@ -11,12 +11,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.demo.Entity.UserInfoEntity;
 import com.example.demo.constant.MessageConst;
 import com.example.demo.constant.SignupMessage;
 import com.example.demo.constant.UrlConst;
 import com.example.demo.dto.SignupReqDto;
+import com.example.demo.entity.UserInfoEntity;
 import com.example.demo.service.SignupService;
+import com.example.demo.service.SignupServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 public class SignupController {
 	// 회원가입 service
 	private final SignupService signupService;
+	
+	// 메세지 소스
 	private final MessageSource messageSource;
 	/**
 	 * 

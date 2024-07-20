@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:insert="common/sourceList::sourceList"></div>
+	<div th:replace="common/header :: header"></div>
+	<div class="container-fluid">
+		<h2 class="mt-3">유저리스트</h2>
+		<div class="mt-3">
+			<span><검색창></span>
+		</div>
+		<div class="mt-1">
+			<form th:action="@{/userList}" method="post" th:object="${userListDto}">
+				<table>
+					<tr>
+						<td><span>유저ID : </span></td>
+						<td>
+							<div class="row g-3 align-items-center">
+								<div class="col-auto">
+									<input type="text" class="form-control" th:field="*{userId}">
+								</div>
+								<div class="col-auto">
+									<span class="form-text">※부분일치</span>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><span>어카운트상태 : </span></td>
+						<td><select class="form-select" name="userStatusKind">
+								<option value="">없음</option>
+								<option th:each="userStatusKind : ${userStatusKinds}" th:value="${userStatusKind}"
+									th:text="${userStatusKind.displayValue}"></option>
+
+						</select></td>
+					</tr>
+					<tr>
+						<td><span>보유권한</span></td>
+						<td><select class="form-select" name="authorityKind">
+								<option value="">없음</option>
+								<option th:each="authorityKind : ${authorityKinds}" th:value="${authorityKind}"
+									th:text="${authorityKind.displayValue}"></option>
+						</select></td>
+					</tr>
+
+				</table>
+				<input type="submit" class="btn btn-primary mt-3" name="search" value="검색">
+			</form>
+		</div>
+		<div class="mt-3">
+			<form th:action="@{/manageUser}" method="post">
+				<table class="table table-striped" id="userList">
+					<thead>
+						<tr>
+							<th scope="col"></th>
+							<th scope="col">유저ID</th>
+							<th scope="col">로그인실패횟수</th>
+							<th scope="col">어카운트잠금날짜</th>
+							<th scope="col">어카운트상태</th>
+							<th scope="col">유저의 권한</th>
+							<th scope="col">유저생성날짜</th>
+							<th scope="col">유저업데이트날짜</th>
+							<th scope="col">최신갱신유저</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user, stat  : ${userList}">
+							<th scope="row" th:text="${stat.count}"></th>
+							<td th:id="|loginId_${stat.count}|"><span th:text="${user.userId}"></span></td>
+							<td th:id="|loginFailureCount_${stat.count}|"><span th:text="${user.loginFailureCount}"></span></td>
+							<td th:id="|accountLockedTime_${stat.count}|">
+								<span th:text="${user.accountLockedTime} != null ? ${#temporals.format(user.accountLockedTime, 'yyyy-MM-dd HH:mm')} : '-'"></span>
+							</td>
+							<td th:id="|status_${stat.count}|"><span th:text="${user.status}"></span></td>
+							<td th:id="|authority_${stat.count}|"><span th:text="${user.authority}"></span></td>	<!-- #temporals.format(날짜객체, 패턴) -->
+							<td th:id="|createTime_${stat.count}|"><span th:text="${#temporals.format(user.createTime, 'yyyy-MM-dd HH:mm')}"></span></td>
+							<td th:id="|updateTime_${stat.count}|"><span th:text="${#temporals.format(user.updateTime, 'yyyy-MM-dd HH:mm')}"></span></td>
+							<td th:id="|updateUser_${stat.count}|"><span th:text="${user.updateUser} != null ? ${user.updateUser} : '-'"></span></td>
+						</tr>
+					</tbody>
+					<input type="submit" class="btn btn-secondary" id="updateBtn" name="update" value="갱신" disabled>
+					<input type="button" class="btn btn-danger" id="deleteDummyBtn" value="삭제" disabled>
+				</table>
+			</form>
+			<div class="mt-3">
+				<a th:href="@{/menu}">뒤로가기</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
