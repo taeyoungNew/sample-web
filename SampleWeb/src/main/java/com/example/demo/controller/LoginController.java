@@ -13,10 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.demo.Entity.UserInfoEntity;
 import com.example.demo.constant.MessageConst;
 import com.example.demo.constant.UrlConst;
 import com.example.demo.dto.LoginReqDto;
+import com.example.demo.entity.UserInfoEntity;
 import com.example.demo.service.LoginService;
 //import com.example.demo.util.AppUtill;
 
@@ -70,7 +70,7 @@ public class LoginController {
 	@GetMapping(value = UrlConst.LOGIN, params = "error")
 	public String loginErrPage(Model model, LoginReqDto form) {
 		Exception errorInfo = (Exception) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-		System.out.println("errorInfo.getMessage() = " + errorInfo.getMessage());
+//		System.out.println("errorInfo.getMessage() = " + errorInfo.getMessage());
 		boolean isError = true;
 		model.addAttribute("errorMsg", errorInfo.getMessage());
 		model.addAttribute("isError", isError);

@@ -28,9 +28,7 @@ public class MenuController {
 		// hasUserManageAuth : 로그인한 유저가 유저정보를 관리하는것이 가능한가에 대한 결과를 담고있음
 		boolean hasUserManageAuth = user.getAuthorities().stream()	// 유저정보에 있는 authorites의 데이터가 1, 2면 false 3이면 true가 된다
 				.allMatch(auth -> auth.getAuthority()
-						.equals(AuthorityKind.ITEM_AND_USER_MANAGER.getAuthorityKind()));
-		
-		System.out.println("hasUserManagerAuth = " + hasUserManageAuth);
+						.equals(AuthorityKind.ITEM_AND_USER_MANAGER.getCode()));
 		// 클라이언트에서는 유저가 유저정보관리가능여부에 따라 버튼을 표시할지 안할지를 결정
 		model.addAttribute("hasUserManageAuth", hasUserManageAuth);
 		return "menu";

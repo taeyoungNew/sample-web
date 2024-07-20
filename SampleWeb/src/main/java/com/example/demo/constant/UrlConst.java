@@ -11,7 +11,11 @@ public class UrlConst {
 	public static final String SIGNUP = "/signup";
 	// 메뉴 페이지
 	public static final String MENU = "/menu";
+	// 유저관리페이지 (관리자전용)
+	public static final String USER_LIST = "/userList";
 	// 인증이 필요없는 페이지
 	public static final String[] NO_AUTHENTICATION = {LOGIN, SIGNUP, "/webjars/**"};
+	
+	
 	
 }

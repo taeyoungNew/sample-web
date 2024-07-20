@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.Entity.UserInfoEntity;
+import com.example.demo.entity.UserInfoEntity;
 import com.example.demo.repository.UserInfoRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Component
 @RequiredArgsConstructor
-public class UserDetailsServiceTmpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 	// 유저정보테이블 Repository
 	private final UserInfoRepository userInfoRepository;
@@ -57,8 +57,8 @@ public class UserDetailsServiceTmpl implements UserDetailsService {
 		return User.withUsername(userInfo.getUserId()) // User
 				.password(userInfo.getPassword())
 //				.roles("USER")
-				.authorities(userInfo.getAuthority())	// 유저의 권한정보를 저장 tymeleaf에서는 hasUserManageAuth로 받는다. 
-				.disabled(userInfo.isDisabled())
+				.authorities(userInfo.getAuthority().getCode())	// 유저의 권한정보를 저장 tymeleaf에서는 hasUserManageAuth로 받는다. 
+				.disabled(userInfo.getStatus().isDisabled())
 				.accountLocked(isAccountLocked)
 				.build();
 	}
