@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import org.springframework.context.MessageSource;
 
+import com.example.demo.entity.UserInfoEntity;
+
 /**
  * 어플리케이션 공통클래스
  * 
@@ -24,5 +26,15 @@ public class AppUtill {
 		// getMessage의 첫번째 인자는 key,
 		// 두번째 인자는 가변변수타입으로 받는데 외부에서 들어오는 데이터를 params으로 받는다.
 		return messageSource.getMessage(key, params, Locale.KOREA);
+	}
+	
+	/**
+	 * DB의 LIKE검색용으로 매개변수의 앞뒤에 '%'로 감싸서 리턴한다.
+	 * 
+	 * @param UserInfoEntity userInfo
+	 * @return 전후에 와일드카드를 붙인 파라미터 
+	 */
+	public static String addWildcard(String param) {
+		return "%" + param + "%";
 	}
 }

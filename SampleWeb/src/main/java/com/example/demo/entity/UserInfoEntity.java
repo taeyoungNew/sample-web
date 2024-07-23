@@ -52,12 +52,12 @@ public class UserInfoEntity {
 	// 이용가능한지(true : 이용가능)
 	@Column(name = "is_disabled")
 	@Convert(converter = UserStatusConverter.class)
-	private UserStatusKind status;
+	private UserStatusKind userStatusKind;
 	
 	// 유저의 권한
 	@Column(name = "authority")
 	@Convert(converter = UserAuthorityConverter.class)
-	private AuthorityKind authority;
+	private AuthorityKind authorityKind;
 	
 	// ID생성시간
 	@Column(name = "create_time")
@@ -82,7 +82,7 @@ public class UserInfoEntity {
 	 */
 	
 	public UserInfoEntity incrementLoginFailureCount() {
-		return new UserInfoEntity(userId, password, ++loginFailureCount, accountLockeTime, status, authority, accountLockeTime, accountLockeTime, password);
+		return new UserInfoEntity(userId, password, ++loginFailureCount, accountLockeTime, userStatusKind, authorityKind, accountLockeTime, accountLockeTime, password);
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class UserInfoEntity {
 	 */
 	public UserInfoEntity resetLoginFailureInfo() {
 		// 로그인 실패횟수를 0으로 그리고 락걸린시간을 null로 리셋
-		return new UserInfoEntity(userId, password, 0, null, status, authority, accountLockeTime, accountLockeTime, password);
+		return new UserInfoEntity(userId, password, 0, null, userStatusKind, authorityKind, accountLockeTime, accountLockeTime, password);
 	}
 	
 	/**
@@ -102,12 +102,12 @@ public class UserInfoEntity {
 	 */
 	public UserInfoEntity updateAccountLocked() {
 		//  LocalDateTime.now() : 현재시간
-		return new UserInfoEntity(userId, password, 0, LocalDateTime.now(), status, authority, accountLockeTime, accountLockeTime, password);
+		return new UserInfoEntity(userId, password, 0, LocalDateTime.now(), userStatusKind, authorityKind, accountLockeTime, accountLockeTime, password);
 	}
 	
 	// Enum의 필드값이 그대로 오기때문에 매개변수의 타입을 AuthorityKind Enum타입으로 설정
 	public void setAuthority(AuthorityKind string) {
-		this.authority = string;
+		this.authorityKind = string;
 	}
 
 	

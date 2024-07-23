@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.UserListDto;
 import com.example.demo.dto.UserListInfoDto;
 
 /**
@@ -18,4 +19,12 @@ public interface UserListService {
 	 * @return 유저정보테이블의 모든 정보
 	 */
 	public List<UserListInfoDto> editUserList();
+
+	/**
+	 * 검색조건에 맞는 유저정보를 클라이언트에 리턴
+	 *
+	 * @param form
+	 * @return
+	 */
+	public List<UserListInfoDto> editUserListByParam(UserListDto form);
 }

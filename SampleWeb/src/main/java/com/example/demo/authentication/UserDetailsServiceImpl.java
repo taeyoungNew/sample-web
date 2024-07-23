@@ -57,8 +57,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return User.withUsername(userInfo.getUserId()) // User
 				.password(userInfo.getPassword())
 //				.roles("USER")
-				.authorities(userInfo.getAuthority().getCode())	// 유저의 권한정보를 저장 tymeleaf에서는 hasUserManageAuth로 받는다. 
-				.disabled(userInfo.getStatus().isDisabled())
+				.authorities(userInfo.getAuthorityKind().getCode())	// 유저의 권한정보를 저장 tymeleaf에서는 hasUserManageAuth로 받는다. 
+				.disabled(userInfo.getUserStatusKind().isDisabled())
 				.accountLocked(isAccountLocked)
 				.build();
 	}
