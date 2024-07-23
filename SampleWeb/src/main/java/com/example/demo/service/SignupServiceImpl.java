@@ -58,7 +58,7 @@ public class SignupServiceImpl implements SignupService {
 
 		userInfo.setPassword(encoderPassword);
 		// 아큐먼트로 넘길 ENUM의 필드값자체를 넘겨줌
-		userInfo.setStatus(UserStatusKind.ENBLED);	// user_info의 is_disabled를 0으로 저장
+		userInfo.setUserStatusKind(UserStatusKind.ENBLED);	// user_info의 is_disabled를 0으로 저장
 		userInfo.setAuthority(AuthorityKind.ITEM_WATCHER);	// user_info의 authority를 1로 저장
 		userInfo.setCreateTime(LocalDateTime.now());
 		userInfo.setUpdateTime(LocalDateTime.now());

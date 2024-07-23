@@ -24,5 +24,5 @@ public class UserListDto {
 	private UserStatusKind userStatusKind;
 	
 	// 유저의 권한 종류
-	private AuthorityKind atuAuthorityKind;
+	private AuthorityKind authorityKind;
 }

@@ -1,8 +1,12 @@
 package com.example.demo.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.constant.AuthorityKind;
+import com.example.demo.constant.UserStatusKind;
 import com.example.demo.entity.UserInfoEntity;
 
 // JpaRepositoryを継承してJpaRepositoryの機能を使うと定義する
@@ -11,5 +15,24 @@ import com.example.demo.entity.UserInfoEntity;
 // JpaRepository를 상속받으면 
 @Repository
 public interface UserInfoRepository extends JpaRepository<UserInfoEntity, String> {
+
+	List<UserInfoEntity> findByUserIdLikeAndUserStatusKindAndAuthorityKind(String userIdParam, UserStatusKind status,
+			AuthorityKind authority);
+
+	List<UserInfoEntity> findByUserIdLikeAndAuthorityKind(String userIdParam, AuthorityKind authority);
+
+	List<UserInfoEntity> findByUserIdLikeAndUserStatusKind(String userIdParam, UserStatusKind status);
+
+	List<UserInfoEntity> findByUserIdLike(String userIdParam);
+
+
+
+
 	
+	
+//	List<UserInfoEntity> findByUserIdLikeAndUserStatus(String userIdParam, UserStatusKind status);
+	
+//	List<UserInfoEntity> findByUserIdLikeAndUserStatusAndAuthroty(String userIdParam, UserStatusKind status,
+//			AuthorityKind authority);
+
 }
