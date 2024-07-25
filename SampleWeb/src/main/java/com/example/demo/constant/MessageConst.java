@@ -1,5 +1,7 @@
 package com.example.demo.constant;
 
+import org.hibernate.engine.internal.StatisticalLoggingSessionEventListener;
+
 /**
  * 에러메세지ID상수클래스
  * 
@@ -21,4 +23,10 @@ public class MessageConst {
 
 	// 입력오류
 	public static final String FORM_ERROR = "common.formError";
+	
+	// 찾는 유저가 데이터베이스에 없을 경우
+	public static final String USERIST_DELETE_SUCCEED = "userList.deleteSucceed";
+	
+	// 유저삭제에 성공했다는 메세지
+	public static final String USERLIST_NON_EXISTED_USER_ID = "userList.nonExistedUserId";
 }

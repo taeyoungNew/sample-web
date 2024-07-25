@@ -22,6 +22,10 @@ $(function() {
 		editSelectedUserId($(this));
 	})
 
+	$('#deleteOkBtn').click(function() {
+		$('#deleteBtn').trigger('click');
+	})
+
 
 })
 
