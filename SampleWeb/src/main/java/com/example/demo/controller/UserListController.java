@@ -1,18 +1,24 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Locale;
 
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.constant.AuthorityKind;
+import com.example.demo.constant.ExecuteResult;
 import com.example.demo.constant.UrlConst;
 import com.example.demo.constant.UserStatusKind;
 import com.example.demo.dto.UserListDto;
 import com.example.demo.dto.UserListInfoDto;
+import com.example.demo.dto.UserSearchInfoDto;
 import com.example.demo.service.UserListService;
+import com.example.demo.util.AppUtill;
+import com.github.dozermapper.core.Mapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +42,11 @@ public class UserListController {
 	// 모델의 키 : 유저권한정보 리스트
 	private static final String KEY_AUTHORITY_KIND_OPTIONS = "authorityKindOptions";
 	
+	private final Mapper mapper;
+	
+	// 메세지 소스
+	private final MessageSource messageSource;
+	
 	/**
 	 * 유저관리화면으로 이동 
 	 * 
@@ -48,8 +59,8 @@ public class UserListController {
 	@GetMapping(UrlConst.USER_LIST)
 	public String userListPage(Model model, UserListDto form) {
 		// entity타입의 유저리스트데이터를 dto타입의 유저리스트데이터로 매핑하고 그 List를 리턴
-		List<UserListInfoDto> userInfo = service.editUserList();
-		model.addAttribute(KEY_USERLIST, userInfo);
+		List<UserListInfoDto> userInfos = service.editUserList();
+		model.addAttribute(KEY_USERLIST, userInfos);
 		
 		model.addAttribute(KEY_USER_STATUS_KIND_OPTIONS, UserStatusKind.values());
 		model.addAttribute(KEY_AUTHORITY_KIND_OPTIONS, AuthorityKind.values());
@@ -65,9 +76,16 @@ public class UserListController {
 	 * @param model 모델
 	 * @return 화면표시
 	 */
-	@PostMapping(UrlConst.USER_LIST)
+	// parmas = "~" : request파라미터에 params로 지정된 항목이 있는지 확인한다. 
+	// 예) 클라이언트에서 /userList로 보내는 버튼이 여러개 있다고 치면 
+	// 컨트롤러에서 어떤 버튼인지 판별하기 위해 클라이언트에서는 name="search"
+	// 컨트롤러에서는 params = "search" 로 지정하여 어떤 처리를 원하는 요청인지 구별가능
+	@PostMapping(value = UrlConst.USER_LIST, params = "search")
 	public String searchUser(Model model, UserListDto form) {
-		List<UserListInfoDto> userInfos = service.editUserListByParam(form);
+		// UserListDto에 필드가 추가되었기 때문에 삭제할 때 활용하는 DTO를 따로 만들어서 
+		// 맵핑을 하고 넘겨준다. 
+		UserSearchInfoDto searchDto = mapper.map(form, UserSearchInfoDto.class);
+		List<UserListInfoDto> userInfos = service.editUserListByParam(searchDto);
 		
 		model.addAttribute(KEY_USERLIST, userInfos);
 		
@@ -75,6 +93,27 @@ public class UserListController {
 		model.addAttribute(KEY_AUTHORITY_KIND_OPTIONS, AuthorityKind.values());
 		
 		return "userList";	// 화면전환을 하지않고 그대로 그 화면에 머무를수 있게 userList를 리턴
+	}
+	
+	
+	/**
+	 * 선택한 유저의 정보를 삭제하고 최신리스트정보를 화면에 리턴
+	 * 
+	 * @param model 모델
+	 * @param form입력정보
+	 * @return 화면표시
+	 */
+	@PostMapping(value = UrlConst.USER_LIST, params = "delete")
+	public String deleteUser(Model model, UserListDto form) {
+		System.out.println(form.getSelectedUserId());
+		ExecuteResult executeResult = service.deleteUserInfoById(form.getSelectedUserId());
+		String messageString = messageSource.getMessage(executeResult.getMessageId(), null, Locale.KOREA);
+		
+		model.addAttribute("isError", executeResult == ExecuteResult.ERROR);
+		model.addAttribute("message", messageString);
+		
+		// 삭제 후 form에 저장된 삭제할 유저ID는 불필요함으로 클리어 해준다.
+		return searchUser(model, form.clearSelectedUserId());
 	}
 	
 }

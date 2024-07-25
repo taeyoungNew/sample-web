@@ -25,4 +25,21 @@ public class UserListDto {
 	
 	// 유저의 권한 종류
 	private AuthorityKind authorityKind;
+	
+	// 유저리스트에서 선택한 유저의 ID
+	private String selectedUserId;
+	
+	/**
+	 * 유저리스트에서 선택한 유저ID를 삭제한다.
+	 * 
+	 * @return 유저리스트에서 선택한 유저ID를 삭제한 뒤에 null을 반환해서 selectedUserId를 비워준다.
+	 * 
+	 */
+	public UserListDto clearSelectedUserId() {
+		this.selectedUserId = null;
+		
+		return this;
+	}
+	
+	
 }
