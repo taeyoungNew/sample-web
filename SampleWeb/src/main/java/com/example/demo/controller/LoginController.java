@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.constant.MessageConst;
 import com.example.demo.constant.UrlConst;
+import com.example.demo.constant.ViewNameConst;
 import com.example.demo.dto.LoginReqDto;
 import com.example.demo.entity.UserInfoEntity;
 import com.example.demo.service.LoginService;
@@ -59,7 +60,7 @@ public class LoginController {
 		 * @param form 입력정보
 		 * @return 표시화면
 		 */
-		return "login";	// templates안에 있는 login폴더가 호출
+		return ViewNameConst.LOGIN;	// templates안에 있는 login폴더가 호출
 	}
 	/**
 	 * 로그인에러 화면 표시
@@ -74,7 +75,7 @@ public class LoginController {
 		boolean isError = true;
 		model.addAttribute("errorMsg", errorInfo.getMessage());
 		model.addAttribute("isError", isError);
-		return "login";
+		return ViewNameConst.LOGIN;
 	}
 	
 	
@@ -94,13 +95,14 @@ public class LoginController {
 				// 첫번째 인자는 Hash화 되지 않은 패스워드, 두번째 인자는 Hash화 되어있는 패스워드
 				&& passwordEncoder.matches(form.getPassword(),userInfo.get().getPassword());
 		if(isCorrectUserAuth) {
-			return "redirect:/menu";
+//			return "redirect:/" + ViewNameConst.MENU;
+			return "redirect:/userList";
 		} else {
 			// message의 key를 모은 클래스를 만들어서 종합적으로 관리하는것을 지향하자
 			String errorMsgString = messageSource.getMessage(MessageConst.LOGIN_WRONG_INPUT, null, Locale.KOREA);
 //			String errorMsgString = AppUtill.getMessage(messageSource, ErrorMassageConst.LOGIN_WRONG_INPUT);
 			model.addAttribute("errorMsg", errorMsgString);
-			return "login"; 
+			return ViewNameConst.LOGIN; 
 		}
 		// var키워드 : java10부터 도입되었으며 지역변수의 타입추론을 위한 키워드이다. 
 		// 변수선언시 타입을 생략가능하게 한다.

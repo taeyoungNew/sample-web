@@ -6,8 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.demo.constant.AuthorityKind;
 import com.example.demo.constant.UrlConst;
+import com.example.demo.constant.ViewNameConst;
+import com.example.demo.constant.db.AuthorityKind;
 
 /*
  * 메뉴Controller
@@ -31,7 +32,7 @@ public class MenuController {
 						.equals(AuthorityKind.ITEM_AND_USER_MANAGER.getCode()));
 		// 클라이언트에서는 유저가 유저정보관리가능여부에 따라 버튼을 표시할지 안할지를 결정
 		model.addAttribute("hasUserManageAuth", hasUserManageAuth);
-		return "menu";
+		return ViewNameConst.MENU;
 	}
 	
 	

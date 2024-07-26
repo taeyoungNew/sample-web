@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.constant.MessageConst;
 import com.example.demo.constant.SignupMessage;
 import com.example.demo.constant.UrlConst;
+import com.example.demo.constant.ViewNameConst;
 import com.example.demo.dto.SignupReqDto;
 import com.example.demo.entity.UserInfoEntity;
 import com.example.demo.service.SignupService;
@@ -39,7 +40,7 @@ public class SignupController {
 	
 	@GetMapping(UrlConst.SIGNUP)
 	public String signupPage(Model model, SignupReqDto form) {
-		return "signup";
+		return ViewNameConst.SIGNUP;
 	}
 	
 	
