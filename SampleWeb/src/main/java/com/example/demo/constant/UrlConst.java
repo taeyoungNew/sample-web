@@ -14,7 +14,7 @@ public class UrlConst {
 	// 유저관리페이지 (관리자전용)
 	public static final String USER_LIST = "/userList";
 	// 인증이 필요없는 페이지
-	public static final String[] NO_AUTHENTICATION = {LOGIN, SIGNUP, "/webjars/**"};
+	public static final String[] NO_AUTHENTICATION = {LOGIN, SIGNUP, "/webjars/**", "/css/**"};
 	
 	
 	
