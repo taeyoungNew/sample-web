@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.constant.AuthorityKind;
-import com.example.demo.constant.UserStatusKind;
+import com.example.demo.constant.db.AuthorityKind;
+import com.example.demo.constant.db.UserStatusKind;
 import com.example.demo.dto.SignupReqDto;
 import com.example.demo.entity.UserInfoEntity;
 import com.example.demo.repository.UserInfoRepository;

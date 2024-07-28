@@ -1,6 +1,6 @@
 package com.example.demo.entity.convert;
 
-import com.example.demo.constant.UserStatusKind;
+import com.example.demo.constant.db.UserStatusKind;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Convert;

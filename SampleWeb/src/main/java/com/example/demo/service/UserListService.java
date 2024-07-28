@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.constant.ExecuteResult;
+import com.example.demo.constant.UserDeleteResult;
 import com.example.demo.dto.UserListDto;
 import com.example.demo.dto.UserListInfoDto;
 import com.example.demo.dto.UserSearchInfoDto;
@@ -37,5 +37,5 @@ public interface UserListService {
 	 * @return 실행결과(에러의 유무) ENUM
 	 * 
 	 */
-	public ExecuteResult deleteUserInfoById(String userId);
+	public UserDeleteResult deleteUserInfoById(String userId);
 }

@@ -7,9 +7,9 @@ $(function() {
 	$('#userList tbody tr').on('click', function() {
 		console.log("클릭")
 		// 모든 행(tr)의 table-active 클래스를 삭제하고 
-		$('#userList tbody tr').removeClass('table-active');
+		$('#userList tbody tr').removeClass('table-row-active');
 		// 클릭한 행(this)에 table-activ 클래스를 add해준다.
-		$(this).addClass('table-active');
+		$(this).addClass('table-row-active');
 		// updateBtn id를 가진 태그의 disabled attribute를 삭제해주면
 		// 해당 버튼이 활성화 상태가 된다.
 		$('#updateBtn').removeAttr('disabled');
