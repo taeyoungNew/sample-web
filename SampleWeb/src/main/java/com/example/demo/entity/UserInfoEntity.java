@@ -3,8 +3,8 @@ package com.example.demo.entity;
 
 import java.time.LocalDateTime;
 
-import com.example.demo.constant.AuthorityKind;
-import com.example.demo.constant.UserStatusKind;
+import com.example.demo.constant.db.AuthorityKind;
+import com.example.demo.constant.db.UserStatusKind;
 import com.example.demo.entity.convert.UserAuthorityConverter;
 import com.example.demo.entity.convert.UserStatusConverter;
 

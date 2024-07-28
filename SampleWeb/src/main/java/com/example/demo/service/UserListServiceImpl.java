@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.hibernate.boot.model.internal.Nullability;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.constant.ExecuteResult;
+import com.example.demo.constant.UserDeleteResult;
 import com.example.demo.dto.UserListDto;
 import com.example.demo.dto.UserListInfoDto;
 import com.example.demo.dto.UserSearchInfoDto;
@@ -107,15 +107,15 @@ public class UserListServiceImpl implements UserListService {
 	 * 
 	 */
 	@Override
-	public ExecuteResult deleteUserInfoById(String userId) {
+	public UserDeleteResult deleteUserInfoById(String userId) {
 		// 먼저 삭제 할 유저가 데이터베이스에 있는지 확인
 		Optional<UserInfoEntity> userInfo = repository.findById(userId);
 		if(userInfo.isEmpty()) {
-			return ExecuteResult.ERROR; // 삭제 실패결과 리턴
+			return UserDeleteResult.ERROR; // 삭제 실패결과 리턴
 		}
 		
 		repository.deleteById(userId);	// 있으면 삭제
 		
-		return ExecuteResult.SUCCEED;	// 삭제 성공결과 리턴
+		return UserDeleteResult.SUCCEED;	// 삭제 성공결과 리턴
 	}
 }

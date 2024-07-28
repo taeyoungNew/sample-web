@@ -29,9 +29,10 @@ public class CommonLogAspect {
 	 * @return 지정한 메서드의 반환값
 	 * 
 	 * com.example.demo패키지 안에 정의된 모든 메서드들을 대상으로 한다.
+	 * @throws Throwable 
 	 */
 	@Around("execution(* com.example.demo..*(..))")
-	public Object writeLog(ProceedingJoinPoint jp) {
+	public Object writeLog(ProceedingJoinPoint jp) throws Throwable {
 		Object returnObject = null;
 		// 시작 로그를 출력 
 		log.info("start : " + jp.getSignature().toString());
@@ -42,6 +43,8 @@ public class CommonLogAspect {
 		} catch (Throwable t) {
 			// 에러로그를 출력
 			log.error(t.toString());
+			
+			// throw t;	// 이걸 추가하면 없는 아이디를 쳤을 때의 에러메세지가 잘 뜨지만 로그인이 되지 않음
 		}
 		
 		// 종료로그를 출력
