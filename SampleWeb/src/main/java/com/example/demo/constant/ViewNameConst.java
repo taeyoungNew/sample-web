@@ -1,5 +1,7 @@
 package com.example.demo.constant;
 
+import java.text.AttributedString;
+
 /**
 <<<<<<< HEAD
  * View명 상수 클래스
@@ -21,4 +23,7 @@ public class ViewNameConst {
 	
 	// 유저갱신화면 
 	public static final String USER_UPDATE = "userUpdate";
+	
+	// 유저갱신에러
+	public static final String USER_UPDATE_ERROR = "userUpdateError";
 }

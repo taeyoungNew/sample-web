@@ -44,6 +44,7 @@ public class UserUpdateServiceImpl implements UserUpdateService {
 
 		// 화면의 입력정보 등을 세트
 		UserInfoEntity updateInfo = updateInfoOpt.get();
+		System.out.println("userUpdateInfo.getUserStatusKind() = " + userUpdateInfo.getUserStatusKind());
 		updateInfo.setUserStatusKind(userUpdateInfo.getUserStatusKind());
 		updateInfo.setAuthorityKind(userUpdateInfo.getAuthorityKind());
 		if (userUpdateInfo.isResetsLoginFailure()) {
@@ -62,7 +63,7 @@ public class UserUpdateServiceImpl implements UserUpdateService {
 		userUpdateResult.setUpdateUserInfo(updateInfo);
 		userUpdateResult.setUpdateMessage(UserUpdateMessage.SUCCEED);
 
-		return null;
+		return userUpdateResult;
 	}
 
 }
