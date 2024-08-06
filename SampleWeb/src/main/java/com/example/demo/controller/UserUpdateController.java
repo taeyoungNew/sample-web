@@ -5,15 +5,18 @@ import java.util.Optional;
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.context.MessageSource;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.demo.constant.MessageConst;
 import com.example.demo.constant.SessionKeyConst;
 import com.example.demo.constant.UrlConst;
 import com.example.demo.constant.UserUpdateMessage;
+import com.example.demo.constant.ViewNameConst;
 import com.example.demo.constant.db.AuthorityKind;
 import com.example.demo.constant.db.UserStatusKind;
 import com.example.demo.dto.UserUpdateInfoDto;
@@ -56,15 +59,16 @@ public class UserUpdateController {
 	 */
 	@GetMapping(UrlConst.USER_UPDATE)
 	public String updateView(Model model, UserUpdateForm form) throws Exception {
-		System.out.println("갱신하기");
 		// 수정할 유저의 ID값을 세션에서 얻는다.
 		String userId = (String) session.getAttribute(SessionKeyConst.SELECTED_USER_ID);
 		System.out.println("userId= " + userId);
 		// 수정할 유저의 정보를 DB에서 가져온다.
 		Optional<UserInfoEntity> userInfoOpt = service.searchUserInfo(userId);
 		
+		// exception => 에러메세지를 던지는걸로 수정 
 		if(userInfoOpt.isEmpty()) {
-			throw new Exception("존재하지 않는 유저입니다.");
+			model.addAttribute("message", msgSource.getMessage(MessageConst.USER_UPDATE_NON_EXISTED_USER_ID, null, Locale.KOREA));
+			return ViewNameConst.USER_UPDATE_ERROR;
 		}
 		
 		setupCommonInfo(model, userInfoOpt.get());
@@ -81,26 +85,29 @@ public class UserUpdateController {
 	 * @return 갱신된 화면표시
 	 */
 	@PostMapping(value = UrlConst.USER_UPDATE, params = "update")
-	public String updateUser(Model model, UserUpdateForm form, @AuthenticationPrincipal User user) {
-
+	public String updateUser(Model model, UserUpdateForm form, @AuthenticationPrincipal UserDetails user) {
+		System.out.println("유저정보갱신하기");
 		// UserUpdateInfoDto클래스로 form을 매핑
 		UserUpdateInfoDto updateDto = mapper.map(form, UserUpdateInfoDto.class);
 		// 세션에 저장된 업데이트할 유저ID를 updateDto에 저장하기
 		updateDto.setUserId((String)session.getAttribute(SessionKeyConst.SELECTED_USER_ID));
+		System.out.println("갱신할 유저의 ID : " + updateDto.getUserId());
 		// 갱신을 하는 유저의 ID를 set
-		System.out.println("나의 ID" + user.getName());
-		updateDto.setUpdateUserId(user.getName());
+		updateDto.setUpdateUserId(user.getUsername());
 		
 		UserUpdateResultDto updateResult = service.updateUserInfo(updateDto);
+		UserUpdateMessage updateMessage = updateResult.getUpdateMessage();
+		if(updateMessage == UserUpdateMessage.FAILED) {
+			model.addAttribute("message", msgSource.getMessage(updateMessage.getMessageId(), null, Locale.KOREA));
+			return ViewNameConst.USER_UPDATE_ERROR;
+		}
 		// 화면에 표시하고 싶은 정보를 갱신한 유저의 정보를 인자로 넘긴다
 		setupCommonInfo(model, updateResult.getUpdateUserInfo());
 		
-		UserUpdateMessage updateMessage = updateResult.getUpdateMessage();
-		
-		model.addAttribute("isError", updateMessage == UserUpdateMessage.FAILED);
+		model.addAttribute("isError", false);
 		model.addAttribute("message", msgSource.getMessage(updateMessage.getMessageId(), null, Locale.KOREA));
 		
-		return null;
+		return ViewNameConst.USER_UPDATE;
 		
 	}
 	

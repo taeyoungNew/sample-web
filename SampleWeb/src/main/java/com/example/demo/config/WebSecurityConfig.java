@@ -40,7 +40,6 @@ public class WebSecurityConfig {
      */
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		System.out.println("USERNAME_PARAMETER = " + USERNAME_PARAMETER);
 		/**
 		 * @param http 커스터마이즈 파라미터
 		 * @return 커스터마이즈결과

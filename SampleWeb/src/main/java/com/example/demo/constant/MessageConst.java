@@ -30,6 +30,8 @@ public class MessageConst {
 	// 유저삭제에 성공했다는 메세지
 	public static final String USERLIST_NON_EXISTED_USER_ID = "userList.nonExistedUserId";
 	
+	public static final String USER_UPDATE_NON_EXISTED_USER_ID = "userUpdate.nonExistedUserId";
+	
 	// 유저정보 갱신에 성공한 메세지
 	public static final String USER_UPDATE_SUCCEED = "userUpdate.succeed";
 	

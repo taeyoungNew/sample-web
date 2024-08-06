@@ -42,7 +42,7 @@ public class UserInfoEntity {
 	
 	// 로그인을 실패한 횟수
 	@Column(name = "login_failure_count")
-	private int loginFailureCount = 0;
+	private int loginFailureCount;
 	
 	// 어카운트 락 시간
 	@Column(name = "account_locked_time")
