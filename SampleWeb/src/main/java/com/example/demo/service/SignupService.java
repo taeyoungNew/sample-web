@@ -2,8 +2,8 @@ package com.example.demo.service;
 
 import java.util.Optional;
 
-import com.example.demo.dto.SignupReqDto;
 import com.example.demo.entity.UserInfoEntity;
+import com.example.demo.form.SignupReqForm;
 
 /**
  * 회원가입Service인터페이스
@@ -20,8 +20,8 @@ public interface SignupService {
 	 * <li> 권한 : 기본적으로 '상품정보확인이 가능'한 값이 저장됩니다. </li>
 	 * </ul> 
 	 * 
-	 * @param signupForm
+	 * @param SignupReqForm
 	 * @return 가입정보(유저정보Entity)
 	 */
-	public Optional<UserInfoEntity> resistUserInfo(SignupReqDto form);
+	public Optional<UserInfoEntity> resistUserInfo(SignupReqForm form);
 }

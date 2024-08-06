@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.constant.MessageConst;
 import com.example.demo.constant.UrlConst;
 import com.example.demo.constant.ViewNameConst;
-import com.example.demo.dto.LoginReqDto;
 import com.example.demo.entity.UserInfoEntity;
+import com.example.demo.form.LoginReqForm;
 import com.example.demo.service.LoginService;
 //import com.example.demo.util.AppUtill;
 
@@ -52,7 +52,7 @@ public class LoginController {
 	// 인자로 Model다음 form클래스를 인자로 주면 자동적으로 modeL안에 form데이터를 넣어서 
 	// 화면에 반환한다.
 	@GetMapping(UrlConst.LOGIN)
-	public String LoginPage(Model model, LoginReqDto form) {
+	public String LoginPage(Model model, LoginReqForm form) {
 		
 		/**
 		 * 초기화면 
@@ -69,7 +69,7 @@ public class LoginController {
 	 * @return 표시화면
 	 */
 	@GetMapping(value = UrlConst.LOGIN, params = "error")
-	public String loginErrPage(Model model, LoginReqDto form) {
+	public String loginErrPage(Model model, LoginReqForm form) {
 		Exception errorInfo = (Exception) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 //		System.out.println("errorInfo.getMessage() = " + errorInfo.getMessage());
 		boolean isError = true;
@@ -86,7 +86,7 @@ public class LoginController {
 	 * @return 화면표시
 	 */
 	@PostMapping(UrlConst.LOGIN)
-	public String Login(Model model, LoginReqDto form) {
+	public String Login(Model model, LoginReqForm form) {
 		Optional<UserInfoEntity> userInfo = loginService.searchUserById(form.getUserId());
 		// isPresent() : 값이 있는지의 여부를 boolean으로 반환
 		// userInfo는 Optional타입이기 때문에 

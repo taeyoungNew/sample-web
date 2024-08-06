@@ -29,7 +29,11 @@ public class CommonLogAspect {
 	 * @return 지정한 메서드의 반환값
 	 * 
 	 * com.example.demo패키지 안에 정의된 모든 메서드들을 대상으로 한다.
+<<<<<<< HEAD
 	 * @throws Throwable 메서드실행 시 catch한 예외
+=======
+	 * @throws Throwable 
+>>>>>>> branch 'main' of https://github.com/taeyoungNew/sample-web.git
 	 */
 	@Around("execution(* com.example.demo..*(..))")
 	public Object writeLog(ProceedingJoinPoint jp) throws Throwable {
@@ -43,7 +47,8 @@ public class CommonLogAspect {
 		} catch (Throwable t) {
 			// 에러로그를 출력
 			log.error(t.toString());
-			throw t;
+			// throw t;
+
 		}
 		
 		// 종료로그를 출력

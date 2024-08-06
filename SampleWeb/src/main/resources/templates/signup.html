@@ -8,8 +8,8 @@
 	th:insert : div안에 가져올 태그를 자식태그로 가져오는 방식
 	th:replace : div자체를 가져올 태그로 갈아끼우는 방식
  -->
-	<div th:insert="common/sourceList::sourceList"></div>
-	<div th:replace="common/messageIcon::messageIcon"></div>
+	<div th:insert="common/sourceList :: sourceList"></div>
+	<div th:replace="common/messageIcon :: messageIcon"></div>
 	<div class="container-fluid">
 	
 		<h2>회원가입 화면</h2>
@@ -23,7 +23,7 @@
 			</svg>	
 			<span th:text="${message}"></span>
 		</div>
-		<form th:action="@{/signup}" method="post" th:object="${signupReqDto}">
+		<form th:action="@{/signup}" method="post" th:object="${signupReqForm}">
 			<div class="form-group">
 				<span class="text-danger" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span>
 				<div class="col-1" style="min-width: 200px">

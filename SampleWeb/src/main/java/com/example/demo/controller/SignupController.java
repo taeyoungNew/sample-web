@@ -15,8 +15,8 @@ import com.example.demo.constant.MessageConst;
 import com.example.demo.constant.SignupMessage;
 import com.example.demo.constant.UrlConst;
 import com.example.demo.constant.ViewNameConst;
-import com.example.demo.dto.SignupReqDto;
 import com.example.demo.entity.UserInfoEntity;
+import com.example.demo.form.SignupReqForm;
 import com.example.demo.service.SignupService;
 import com.example.demo.service.SignupServiceImpl;
 
@@ -39,7 +39,7 @@ public class SignupController {
 	 */
 	
 	@GetMapping(UrlConst.SIGNUP)
-	public String signupPage(Model model, SignupReqDto form) {
+	public String signupPage(Model model, SignupReqForm form) {
 		return ViewNameConst.SIGNUP;
 	}
 	
@@ -54,7 +54,7 @@ public class SignupController {
 	// @Validated : Validation을 사용하기 위해서는 클라이언트에서 받는 form앞에 @Validated어노테이션을 붙인다.
 	// BindingResult : @Validated가 붙은 폼의 입력체크결과를 가져온다.반드시 form 바로 뒤에 정의를 하지않으면 
 	// Validated결과를 가져올수 없다.
-	public void signup(Model model, @Validated SignupReqDto form, BindingResult bidingResult) {
+	public void signup(Model model, @Validated SignupReqForm form, BindingResult bidingResult) {
 		if(bidingResult.hasErrors()) {
 //			String formErrMessage = messageSource.getMessage(MessageConst.FORM_ERROR , null, Locale.KOREA);
 //			model.addAttribute("message", formErrMessage);

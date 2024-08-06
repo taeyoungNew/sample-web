@@ -8,10 +8,10 @@ import org.hibernate.boot.model.internal.Nullability;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.constant.UserDeleteResult;
-import com.example.demo.dto.UserListDto;
 import com.example.demo.dto.UserListInfoDto;
 import com.example.demo.dto.UserSearchInfoDto;
 import com.example.demo.entity.UserInfoEntity;
+import com.example.demo.form.UserListForm;
 import com.example.demo.repository.UserInfoRepository;
 import com.example.demo.util.AppUtill;
 import com.github.dozermapper.core.Mapper;

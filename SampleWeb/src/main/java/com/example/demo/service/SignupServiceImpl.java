@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.constant.db.AuthorityKind;
 import com.example.demo.constant.db.UserStatusKind;
-import com.example.demo.dto.SignupReqDto;
 import com.example.demo.entity.UserInfoEntity;
+import com.example.demo.form.SignupReqForm;
 import com.example.demo.repository.UserInfoRepository;
 import com.github.dozermapper.core.Mapper;
 
@@ -39,7 +39,7 @@ public class SignupServiceImpl implements SignupService {
 	 */
 	
 	@Override	
-	public Optional<UserInfoEntity> resistUserInfo(SignupReqDto form) {
+	public Optional<UserInfoEntity> resistUserInfo(SignupReqForm form) {
 		// Optional : java8부터 도입된 Optional은 값이 없는 경우를 표현하기 위한 클래스이다.
 		// <>(제네릭)을 사용하여 어떤 타입의 객체도 감싸서 담을 수 있다.
 		// 값이 존재할 수도 존재하지않을 수도 있으며

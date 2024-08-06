@@ -37,4 +37,16 @@ public class AppUtill {
 	public static String addWildcard(String param) {
 		return "%" + param + "%";
 	}
+	
+	/**
+	 * 리다이렉트 장소에 URL을 전달하고 리다이렉트 할 URL을 작성한다.
+	 * 
+	 * @param url 리다이렉트 URL
+	 * @return 리다이렉트의 URL
+	 */
+	public static String doRedirect(String url) {
+		return "redirect:" + url;
+	}
+	
+	
 }
