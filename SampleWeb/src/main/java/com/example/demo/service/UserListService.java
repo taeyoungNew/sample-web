@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.constant.UserDeleteResult;
-import com.example.demo.dto.UserListDto;
 import com.example.demo.dto.UserListInfoDto;
 import com.example.demo.dto.UserSearchInfoDto;
+import com.example.demo.form.UserListForm;
 
 /**
  * 유저리스트화면 Service인터페이스

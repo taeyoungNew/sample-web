@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.constant.MessageConst;
 import com.example.demo.constant.UrlConst;
-import com.example.demo.dto.LoginReqDto;
+import com.example.demo.constant.ViewNameConst;
 import com.example.demo.entity.UserInfoEntity;
+import com.example.demo.form.LoginReqForm;
 import com.example.demo.service.LoginService;
 //import com.example.demo.util.AppUtill;
 
@@ -51,7 +52,7 @@ public class LoginController {
 	// 인자로 Model다음 form클래스를 인자로 주면 자동적으로 modeL안에 form데이터를 넣어서 
 	// 화면에 반환한다.
 	@GetMapping(UrlConst.LOGIN)
-	public String LoginPage(Model model, LoginReqDto form) {
+	public String LoginPage(Model model, LoginReqForm form) {
 		
 		/**
 		 * 초기화면 
@@ -59,7 +60,7 @@ public class LoginController {
 		 * @param form 입력정보
 		 * @return 표시화면
 		 */
-		return "login";	// templates안에 있는 login폴더가 호출
+		return ViewNameConst.LOGIN;	// templates안에 있는 login폴더가 호출
 	}
 	/**
 	 * 로그인에러 화면 표시
@@ -68,13 +69,13 @@ public class LoginController {
 	 * @return 표시화면
 	 */
 	@GetMapping(value = UrlConst.LOGIN, params = "error")
-	public String loginErrPage(Model model, LoginReqDto form) {
+	public String loginErrPage(Model model, LoginReqForm form) {
 		Exception errorInfo = (Exception) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 //		System.out.println("errorInfo.getMessage() = " + errorInfo.getMessage());
 		boolean isError = true;
 		model.addAttribute("errorMsg", errorInfo.getMessage());
 		model.addAttribute("isError", isError);
-		return "login";
+		return ViewNameConst.LOGIN;
 	}
 	
 	
@@ -85,7 +86,7 @@ public class LoginController {
 	 * @return 화면표시
 	 */
 	@PostMapping(UrlConst.LOGIN)
-	public String Login(Model model, LoginReqDto form) {
+	public String Login(Model model, LoginReqForm form) {
 		Optional<UserInfoEntity> userInfo = loginService.searchUserById(form.getUserId());
 		// isPresent() : 값이 있는지의 여부를 boolean으로 반환
 		// userInfo는 Optional타입이기 때문에 
@@ -94,13 +95,14 @@ public class LoginController {
 				// 첫번째 인자는 Hash화 되지 않은 패스워드, 두번째 인자는 Hash화 되어있는 패스워드
 				&& passwordEncoder.matches(form.getPassword(),userInfo.get().getPassword());
 		if(isCorrectUserAuth) {
-			return "redirect:/menu";
+//			return "redirect:/" + ViewNameConst.MENU;
+			return "redirect:/userList";
 		} else {
 			// message의 key를 모은 클래스를 만들어서 종합적으로 관리하는것을 지향하자
 			String errorMsgString = messageSource.getMessage(MessageConst.LOGIN_WRONG_INPUT, null, Locale.KOREA);
 //			String errorMsgString = AppUtill.getMessage(messageSource, ErrorMassageConst.LOGIN_WRONG_INPUT);
 			model.addAttribute("errorMsg", errorMsgString);
-			return "login"; 
+			return ViewNameConst.LOGIN; 
 		}
 		// var키워드 : java10부터 도입되었으며 지역변수의 타입추론을 위한 키워드이다. 
 		// 변수선언시 타입을 생략가능하게 한다.

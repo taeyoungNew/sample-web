@@ -17,8 +17,6 @@ $(function() {
 		// 해당 버튼이 활성화 상태가 된다.
 		$('#deleteDummyBtn').removeAttr('disabled');
 
-		
-		console.log(this)
 		editSelectedUserId($(this));
 	})
 

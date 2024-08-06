@@ -16,6 +16,7 @@ public class UrlConst {
 	// 인증이 필요없는 페이지
 	public static final String[] NO_AUTHENTICATION = {LOGIN, SIGNUP, "/webjars/**", "/css/**"};
 	
+	public static final String USER_UPDATE = "/userUpdate" ;
 	
 	
 }

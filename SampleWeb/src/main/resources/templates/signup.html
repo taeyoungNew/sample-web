@@ -23,7 +23,7 @@
 			</svg>	
 			<span th:text="${message}"></span>
 		</div>
-		<form th:action="@{/signup}" method="post" th:object="${signupReqDto}">
+		<form th:action="@{/signup}" method="post" th:object="${signupReqForm}">
 			<div class="form-group">
 				<span class="text-danger" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span>
 				<div class="col-1" style="min-width: 200px">

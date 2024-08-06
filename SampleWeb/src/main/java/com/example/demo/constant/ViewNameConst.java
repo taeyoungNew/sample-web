@@ -1,7 +1,9 @@
 package com.example.demo.constant;
 
 /**
- * View이름 상수클래스
+<<<<<<< HEAD
+ * View명 상수 클래스
+ * 
  */
 public class ViewNameConst {
 
@@ -16,4 +18,7 @@ public class ViewNameConst {
 	
 	// 유저리스트 화면 
 	public static final String USER_LIST = "userList";
+	
+	// 유저갱신화면 
+	public static final String USER_UPDATE = "userUpdate";
 }

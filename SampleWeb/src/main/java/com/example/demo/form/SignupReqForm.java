@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.form;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class SignupReqDto {
+public class SignupReqForm {
 	@Length(min = 8, max = 20)
 	private String userId;
 	@Length(min = 5, max = 20)

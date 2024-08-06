@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.form;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -15,7 +15,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class UserListDto {
+public class UserListForm {
 	// 유저ID
 	@Length(min=8, max=20)
 	private String userId;
@@ -35,7 +35,7 @@ public class UserListDto {
 	 * @return 유저리스트에서 선택한 유저ID를 삭제한 뒤에 null을 반환해서 selectedUserId를 비워준다.
 	 * 
 	 */
-	public UserListDto clearSelectedUserId() {
+	public UserListForm clearSelectedUserId() {
 		this.selectedUserId = null;
 		
 		return this;
