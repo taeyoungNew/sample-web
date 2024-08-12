@@ -80,13 +80,13 @@ public class LoginController {
 	
 	
 	/**
-	 * 
 	 * @param model
 	 * @param form
 	 * @return 화면표시
 	 */
 	@PostMapping(UrlConst.LOGIN)
 	public String Login(Model model, LoginReqForm form) {
+		System.out.println("로그인컨트롤러");
 		Optional<UserInfoEntity> userInfo = loginService.searchUserById(form.getUserId());
 		// isPresent() : 값이 있는지의 여부를 boolean으로 반환
 		// userInfo는 Optional타입이기 때문에 

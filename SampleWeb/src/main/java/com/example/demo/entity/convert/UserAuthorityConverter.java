@@ -16,7 +16,6 @@ public class UserAuthorityConverter implements AttributeConverter<AuthorityKind,
 	 */
 	@Override
 	public String convertToDatabaseColumn(AuthorityKind authorityKind) {
-		
 		return authorityKind.getCode();
 	}
 
