@@ -40,6 +40,19 @@ public class UserInfoEntity {
 	@Column(name = "password")
 	private String password;
 	
+	// 메일주소
+	@Column(name = "mail_address")
+	private String mailAddress;
+	
+	// 원타입코드
+	@Column(name = "one_time_code")
+	private String oneTimeCode;
+	
+	// 원타입코드의 유효기간
+	@Column(name = "one_time_code_expiration")
+	private LocalDateTime oneTimeCodeExpiration;
+	
+	
 	// 로그인을 실패한 횟수
 	@Column(name = "login_failure_count")
 	private int loginFailureCount;
@@ -82,7 +95,7 @@ public class UserInfoEntity {
 	 */
 	
 	public UserInfoEntity incrementLoginFailureCount() {
-		return new UserInfoEntity(userId, password, ++loginFailureCount, accountLockeTime, userStatusKind, authorityKind, accountLockeTime, accountLockeTime, password);
+		return new UserInfoEntity(userId, password, mailAddress, oneTimeCode, oneTimeCodeExpiration, ++loginFailureCount, accountLockeTime, userStatusKind, authorityKind, createTime, updateTime, updateUser);
 	}
 	
 	/**
@@ -92,7 +105,7 @@ public class UserInfoEntity {
 	 */
 	public UserInfoEntity resetLoginFailureInfo() {
 		// 로그인 실패횟수를 0으로 그리고 락걸린시간을 null로 리셋
-		return new UserInfoEntity(userId, password, 0, null, userStatusKind, authorityKind, accountLockeTime, accountLockeTime, password);
+		return new UserInfoEntity(userId, password, mailAddress, oneTimeCode, oneTimeCodeExpiration, 0, null, userStatusKind, authorityKind, createTime, updateTime, updateUser);
 	}
 	
 	/**
@@ -102,7 +115,7 @@ public class UserInfoEntity {
 	 */
 	public UserInfoEntity updateAccountLocked() {
 		//  LocalDateTime.now() : 현재시간
-		return new UserInfoEntity(userId, password, 0, LocalDateTime.now(), userStatusKind, authorityKind, accountLockeTime, accountLockeTime, password);
+		return new UserInfoEntity(userId, password, mailAddress, oneTimeCode, oneTimeCodeExpiration, 0, LocalDateTime.now(), userStatusKind, authorityKind, createTime, updateTime, updateUser);
 	}
 	
 	// Enum의 필드값이 그대로 오기때문에 매개변수의 타입을 AuthorityKind Enum타입으로 설정

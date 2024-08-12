@@ -44,9 +44,9 @@ public class UserUpdateServiceImpl implements UserUpdateService {
 
 		// 화면의 입력정보 등을 세트
 		UserInfoEntity updateInfo = updateInfoOpt.get();
-		System.out.println("userUpdateInfo.getUserStatusKind() = " + userUpdateInfo.getUserStatusKind());
 		updateInfo.setUserStatusKind(userUpdateInfo.getUserStatusKind());
 		updateInfo.setAuthorityKind(userUpdateInfo.getAuthorityKind());
+		System.out.println("userUpdateInfo.getUserStatusKind() = " + updateInfo.getAuthorityKind());
 		if (userUpdateInfo.isResetsLoginFailure()) {
 			updateInfo.setLoginFailureCount(0);
 			updateInfo.setAccountLockeTime(null);

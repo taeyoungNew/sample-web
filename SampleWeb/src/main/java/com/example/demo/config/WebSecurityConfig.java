@@ -40,6 +40,7 @@ public class WebSecurityConfig {
      */
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    	System.out.println("2");
 		/**
 		 * @param http 커스터마이즈 파라미터
 		 * @return 커스터마이즈결과
@@ -71,6 +72,7 @@ public class WebSecurityConfig {
 //					.logoutUrl("/logout")	// 로그아웃 구현
 					.logoutSuccessUrl(UrlConst.SIGNUP)
 			);	
+		System.out.println("3");
 
 		return http.build();
 	}
@@ -83,6 +85,7 @@ public class WebSecurityConfig {
     
 	@Bean	// AuthenticationProvider를 @Bean하므로써 기존의 Provider에서 커스텀 Provider로 쓸 수 있다.
 	AuthenticationProvider daoAuthenticationProvider() {
+		System.out.println("1");
 		// DaoAuthenticationProvider : UserDetailsService와 PasswordEncoder로 username/password를 인증하는
 		// AuthenticationProvider 구현체이다.
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();

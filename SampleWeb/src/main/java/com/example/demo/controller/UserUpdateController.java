@@ -92,10 +92,12 @@ public class UserUpdateController {
 		// 세션에 저장된 업데이트할 유저ID를 updateDto에 저장하기
 		updateDto.setUserId((String)session.getAttribute(SessionKeyConst.SELECTED_USER_ID));
 		System.out.println("갱신할 유저의 ID : " + updateDto.getUserId());
+		System.out.println("갱신할 유저의 권한정보 : " + updateDto.getAuthorityKind());
 		// 갱신을 하는 유저의 ID를 set
 		updateDto.setUpdateUserId(user.getUsername());
 		
 		UserUpdateResultDto updateResult = service.updateUserInfo(updateDto);
+		
 		UserUpdateMessage updateMessage = updateResult.getUpdateMessage();
 		if(updateMessage == UserUpdateMessage.FAILED) {
 			model.addAttribute("message", msgSource.getMessage(updateMessage.getMessageId(), null, Locale.KOREA));

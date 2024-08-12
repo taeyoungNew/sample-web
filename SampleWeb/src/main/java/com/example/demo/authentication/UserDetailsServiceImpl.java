@@ -72,10 +72,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 */
 	@EventListener
 	public void handle(AuthenticationFailureBadCredentialsEvent event) {
+		System.out.println("로그인 실패");
 		String loginId = event.getAuthentication().getName();
-		//	ifPresent()는 Optional 객체가 값을 가지고 있으면 실행 값이 없으면 넘어감
+		//	ifPresent()는 Optional 객체가 값을 가지고 있으면 실행 or 값이 없으면 넘어감
 		// loginId를 찾고 그 값이 있으면 ifPresent메서드가 다음으로 넘긴다.
 		userInfoRepository.findById(loginId).ifPresent(userInfo-> {
+			System.out.println("로그인횟수 늘리기");
 			// 로그인 한번 실패시 로그인한 아이디의 failureCount컬럼에 1씩 추가한다.
 			userInfoRepository.save(userInfo.incrementLoginFailureCount());
 			
@@ -95,6 +97,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 */
 	@EventListener
 	public void handle(AuthenticationSuccessEvent event) {
+		System.out.println("로그인 성공");
 		String loginId = event.getAuthentication().getName();
 		userInfoRepository.findById(loginId).ifPresent(userInfo -> {
 			userInfoRepository.save(userInfo.resetLoginFailureInfo());

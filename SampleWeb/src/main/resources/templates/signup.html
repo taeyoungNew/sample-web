@@ -4,38 +4,49 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <body>
-<!-- 
+	<!-- 
 	th:insert : div안에 가져올 태그를 자식태그로 가져오는 방식
 	th:replace : div자체를 가져올 태그로 갈아끼우는 방식
  -->
 	<div th:insert="common/sourceList :: sourceList"></div>
 	<div th:replace="common/messageIcon :: messageIcon"></div>
 	<div class="container-fluid">
-	
+
 		<h2>회원가입 화면</h2>
 		<!-- th:classappend : 해당태그에 동적으로 class를 추가할 수 있다. -->
 		<!-- isError가 true면 aler-danger false면 alert-success를 추가한다. -->
 		<!-- isError의 초기값이 에러가 되어있으면 th:classappend는 에러를 발생한다. 그러므로 null처리를 해주자 -->
-		<div class="alert d-flex align-items-center" th:classappend="|${isError ? 'alert-danger' : 'alert-success'}|" th:if="${message != null}" role="alert">
+		<div class="alert d-flex align-items-center"
+			th:classappend="|${isError ? 'alert-danger' : 'alert-success'}|" th:if="${message != null}"
+			role="alert">
 			<svg class="bi flex-shrink-0 me-2" width="24" height="24">
-				<use xlink:href="#exclamation-triangle-fill" th:if="${isError}"/>	<!-- th:if="${true}" 면 호출 -->
-				<use xlink:href="#check-circle-fill" th:unless="${isError}"/>		<!-- th:unless="${false}" 면 호출 -->
-			</svg>	
+				<use xlink:href="#exclamation-triangle-fill" th:if="${isError}" />	<!-- th:if="${true}" 면 호출 -->
+				<use xlink:href="#check-circle-fill" th:unless="${isError}" />		<!-- th:unless="${false}" 면 호출 -->
+			</svg>
 			<span th:text="${message}"></span>
 		</div>
 		<form th:action="@{/signup}" method="post" th:object="${signupReqForm}">
 			<div class="form-group">
-				<span class="text-danger" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span>
-				<div class="col-1" style="min-width: 200px">
-					<p><label for="userId">회원가입 ID : </label> 
-					<input class="form-control" type="text" th:field="*{userId}">
+				<div class="col-5 col-md-6 col-xxl-3" style="min-width: 200px">
+					<p>
+						<label for="userId">회원가입 ID : </label> <input class="form-control" type="text"
+							th:field="*{userId}"> <span class="text-danger"
+							th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span>
 				</div>
-				<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-				<div class="col-1" style="min-width: 200px">
-					<p><label for="password">패스워드 : </label> 
-					<input class="form-control" type="password" th:field="*{password}">
+				<div class="col-5 col-md-6 col-xxl-3" style="min-width: 200px">
+					<p>
+						<label for="password">패스워드 : </label> <input class="form-control" type="password"
+							th:field="*{password}"> <span class="text-danger"
+							th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 				</div>
-				<p>	<input class="btn btn-primary" type="submit" value="회원가입">
+				<div class="col-5 col-md-6 col-xxl-3" style="min-width: 200px">
+					<p>
+						<label for="mailAddress">이메일 : </label> <input class="form-control" type="text"
+							th:field="*{mailAddress}"> <span class="text-danger"
+							th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}"></span>
+				</div>
+				<p>
+					<input class="btn btn-primary" type="submit" value="회원가입">
 			</div>
 		</form>
 		<div>
