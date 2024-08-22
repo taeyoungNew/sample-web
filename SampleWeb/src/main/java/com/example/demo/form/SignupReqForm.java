@@ -1,8 +1,9 @@
 package com.example.demo.form;
 
+import jakarta.validation.constraints.Pattern;
+
 import org.hibernate.validator.constraints.Length;
 
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,5 +26,4 @@ public class SignupReqForm {
 	@Length(max = 100)
 	@Pattern(regexp = "^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", message = "{signup.invalidMailAddress}")
 	private String mailAddress;
-
 }
